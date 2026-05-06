@@ -275,7 +275,7 @@
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 20px;
             transition: border-color 0.2s ease, transform 0.2s ease;
         }
 
@@ -312,34 +312,59 @@
 
         .project-footer {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            gap: 16px;
             font-size: 12px;
             font-family: 'Space Grotesk', sans-serif;
+            border-top: 1px solid var(--outline-variant);
+            padding-top: 16px;
         }
 
         .project-lang {
             display: flex;
             align-items: center;
             gap: 6px;
-        }
-
-        .demo-link {
-            font-weight: 600;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
             color: var(--on-surface-variant);
-            padding: 4px 8px;
-            border: 1px solid var(--outline-variant);
-            border-radius: 4px;
-            transition: all 0.2s ease;
         }
 
-        .demo-link:hover {
-            color: var(--primary);
-            border-color: var(--primary);
-            background-color: rgba(172, 199, 255, 0.05);
+        .play-button {
+            width: 100%;
+            text-align: center;
+            background-color: var(--primary);
+            color: var(--on-primary);
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 12px 0;
+            border-radius: 4px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .play-button::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 10px solid var(--on-primary);
+            transition: transform 0.2s ease;
+        }
+
+        .play-button:hover {
+            background-color: #d7e2ff;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(172, 199, 255, 0.4);
+            color: var(--on-primary);
+        }
+
+        .play-button:hover::before {
+            transform: scale(1.2);
         }
 
         .lang-dot {
@@ -464,7 +489,7 @@
                             <span class="lang-dot" style="background-color: #f1e05a;"></span>
                             JavaScript
                         </div>
-                        <a href="https://survinar.github.io/NightsAtRoby/" class="demo-link">Live Demo</a>
+                        <a href="https://survinar.github.io/NightsAtRoby/" class="play-button">PLAY</a>
                     </div>
                 </div>
 
@@ -482,7 +507,7 @@
                             <span class="lang-dot" style="background-color: #e34c26;"></span>
                             HTML
                         </div>
-                        <a href="https://survinar.github.io/backrooms-game/" class="demo-link">Live Demo</a>
+                        <a href="https://survinar.github.io/backrooms-game/" class="play-button">PLAY</a>
                     </div>
                 </div>
 
@@ -500,7 +525,7 @@
                             <span class="lang-dot" style="background-color: #f1e05a;"></span>
                             JavaScript
                         </div>
-                        <a href="https://survinar.github.io/HEHE/" class="demo-link">Live Demo</a>
+                        <a href="https://survinar.github.io/HEHE/" class="play-button">PLAY</a>
                     </div>
                 </div>
             </div>
