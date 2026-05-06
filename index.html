@@ -372,25 +372,46 @@
 
         /* Responsive */
         @media (max-width: 900px) {
+            nav {
+                padding: 24px var(--gutter);
+            }
             .nav-top, .nav-bottom {
                 flex-direction: column;
-                gap: 16px;
-                align-items: flex-start;
+                gap: 24px;
+                align-items: center;
+                text-align: center;
+            }
+            .nav-brand {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .header-languages {
+                justify-content: center;
+                width: 100%;
+                flex-wrap: wrap;
+            }
+            .nav-meta-left {
+                flex-direction: column;
+                gap: 12px;
             }
             .projects-grid {
                 grid-template-columns: 1fr;
             }
             .projects-header {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: center;
+                text-align: center;
                 gap: 16px;
             }
             .header-right {
+                flex-direction: column;
                 width: 100%;
-                justify-content: space-between;
+                align-items: center;
+                gap: 12px;
             }
             .search-input {
                 width: 100%;
+                max-width: 320px;
             }
         }
     </style>
