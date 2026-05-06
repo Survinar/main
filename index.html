@@ -63,47 +63,18 @@
         nav {
             max-width: var(--container-max);
             margin: 0 auto;
-            padding: 32px var(--gutter);
+            padding: 40px var(--gutter);
             display: flex;
             align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .nav-logo-img {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            background-image: url('https://avatars.githubusercontent.com/u/69941384?v=4');
-            background-size: cover;
+            justify-content: center;
         }
 
         .nav-logo-text {
-            font-size: 24px;
+            font-size: 32px;
             font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .nav-link {
-            color: var(--on-surface-variant);
-        }
-
-        .nav-link.active {
+            letter-spacing: -0.04em;
             color: var(--on-surface);
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 4px;
+            text-transform: uppercase;
         }
 
         .search-container {
@@ -119,51 +90,33 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 14px;
             width: 240px;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(172, 199, 255, 0.1);
         }
 
         /* Hero Section */
         .hero {
             max-width: var(--container-max);
-            margin: 40px auto var(--section-gap);
+            margin: 0 auto var(--section-gap);
             padding: 0 var(--gutter);
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-
-        .hero-avatar {
-            width: 100%;
-            aspect-ratio: 1;
-            border-radius: 12px;
-            border: 1px solid var(--outline-variant);
-            overflow: hidden;
-            background-image: url('https://avatars.githubusercontent.com/u/69941384?v=4');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero-content h1 {
-            font-size: 48px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-        }
-
-        .hero-subtitle {
-            font-size: 24px;
-            color: var(--on-surface-variant);
-            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         .hero-meta {
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            gap: 24px;
             font-family: 'Space Grotesk', sans-serif;
             font-size: 14px;
             color: var(--on-surface-variant);
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .hero-meta div {
@@ -175,8 +128,9 @@
         .contributions-summary {
             font-weight: 600;
             color: var(--on-surface);
-            padding-top: 24px;
+            padding: 12px 24px;
             border-top: 1px solid var(--outline-variant);
+            border-bottom: 1px solid var(--outline-variant);
         }
 
         /* Main Grid */
@@ -255,6 +209,12 @@
         .projects-header h2 {
             font-size: 32px;
             font-weight: 600;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
         .customize-link {
@@ -396,46 +356,39 @@
             .hero {
                 grid-template-columns: 1fr;
             }
-            .hero-avatar {
-                max-width: 200px;
-            }
             .main-layout {
                 grid-template-columns: 1fr;
             }
             .projects-grid {
                 grid-template-columns: 1fr;
             }
+            .projects-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .search-input {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <nav>
-        <div class="nav-left">
-            <div class="nav-logo-img"></div>
-            <div class="nav-logo-text">Survinar</div>
-            <div class="nav-links">
-                <a href="#" class="nav-link active">Overview</a>
-                <a href="#" class="nav-link">Repositories</a>
-                <a href="#" class="nav-link">Projects</a>
-            </div>
-        </div>
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="Type / to search">
-        </div>
+        <div class="nav-logo-text">Survinar</div>
     </nav>
 
     <div class="hero">
-        <div class="hero-avatar"></div>
-        <div class="hero-content">
-            <h1>Survinar</h1>
-            <div class="hero-subtitle">Survinar · he/him</div>
-            <div class="hero-meta">
-                <div><span>🕒</span> UTC -12:00</div>
-                <div><span>🔗</span> <a href="https://github.com/Survinar">https://github.com/Survinar</a></div>
-            </div>
-            <div class="contributions-summary">
-                39 contributions in the last year
-            </div>
+        <div class="hero-meta">
+            <div><span>🕒</span> UTC -12:00</div>
+            <div><span>🔗</span> <a href="https://github.com/Survinar">github.com/Survinar</a></div>
+        </div>
+        <div class="contributions-summary">
+            39 contributions in the last year
         </div>
     </div>
 
@@ -471,7 +424,12 @@
         <main>
             <div class="projects-header">
                 <h2>Popular repositories</h2>
-                <a href="#" class="customize-link">Customize your pins</a>
+                <div class="header-right">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Type / to search">
+                    </div>
+                    <a href="#" class="customize-link">Customize pins</a>
+                </div>
             </div>
             
             <div class="projects-grid">
