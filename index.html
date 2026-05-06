@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survinar | Technical Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --surface: #10141a;
+            --surface-dim: #10141a;
+            --surface-bright: #353940;
+            --surface-container-lowest: #0a0e14;
+            --surface-container-low: #181c22;
+            --surface-container: #1c2026;
+            --surface-container-high: #262a31;
+            --surface-container-highest: #31353c;
+            --on-surface: #dfe2eb;
+            --on-surface-variant: #c1c6d6;
+            --outline: #8b909f;
+            --outline-variant: #414754;
+            --primary: #acc7ff;
+            --on-primary: #002f68;
+            --secondary: #bfc7d3;
+            --on-secondary: #29313a;
+            --background: #10141a;
+            --on-background: #dfe2eb;
+            
+            --spacing-base: 8px;
+            --container-max: 1200px;
+            --gutter: 24px;
+            --section-gap: 80px;
+            --element-gap: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--on-background);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #d7e2ff;
+        }
+
+        /* Navigation */
+        nav {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 32px var(--gutter);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-logo-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            background-image: url('https://avatars.githubusercontent.com/u/69941384?v=4');
+            background-size: cover;
+        }
+
+        .nav-logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            color: var(--on-surface-variant);
+        }
+
+        .nav-link.active {
+            color: var(--on-surface);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 4px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            background-color: var(--surface-container-lowest);
+            border: 1px solid var(--outline-variant);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: var(--on-surface);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            width: 240px;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: var(--container-max);
+            margin: 40px auto var(--section-gap);
+            padding: 0 var(--gutter);
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .hero-avatar {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            border: 1px solid var(--outline-variant);
+            overflow: hidden;
+            background-image: url('https://avatars.githubusercontent.com/u/69941384?v=4');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: var(--on-surface-variant);
+            margin-bottom: 24px;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--on-surface-variant);
+            margin-bottom: 32px;
+        }
+
+        .hero-meta div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contributions-summary {
+            font-weight: 600;
+            color: var(--on-surface);
+            padding-top: 24px;
+            border-top: 1px solid var(--outline-variant);
+        }
+
+        /* Main Grid */
+        .main-layout {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--gutter);
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 40px;
+        }
+
+        /* Sidebar */
+        aside {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .sidebar-section {
+            padding: 16px;
+            background-color: var(--surface-container-lowest);
+            border: 1px solid var(--outline-variant);
+            border-radius: 8px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--on-surface);
+        }
+
+        .achievement-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 6px;
+            border: 1px solid var(--outline-variant);
+            background-image: url('https://github.githubassets.com/assets/pair-extraordinaire-default-579438a20e01.png');
+            background-size: cover;
+        }
+
+        .language-item {
+            margin-bottom: 12px;
+        }
+
+        .language-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: var(--surface-container-high);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        /* Projects Section */
+        .projects-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--outline-variant);
+        }
+
+        .projects-header h2 {
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        .customize-link {
+            font-size: 12px;
+            color: var(--on-surface-variant);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .project-card {
+            background-color: var(--surface-container-lowest);
+            border: 1px solid var(--outline-variant);
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .project-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .project-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .project-status {
+            font-size: 12px;
+            padding: 2px 8px;
+            border: 1px solid var(--outline-variant);
+            border-radius: 999px;
+            color: var(--on-surface-variant);
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: var(--on-surface-variant);
+            flex-grow: 1;
+        }
+
+        .project-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .project-lang {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .demo-link {
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--on-surface-variant);
+            padding: 4px 8px;
+            border: 1px solid var(--outline-variant);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .demo-link:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            background-color: rgba(172, 199, 255, 0.05);
+        }
+
+        .lang-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Footer */
+        footer {
+            max-width: var(--container-max);
+            margin: var(--section-gap) auto 40px;
+            padding: 24px var(--gutter);
+            border-top: 1px solid var(--outline-variant);
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--on-surface-variant);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .hero-avatar {
+                max-width: 200px;
+            }
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <div class="nav-logo-img"></div>
+            <div class="nav-logo-text">Survinar</div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active">Overview</a>
+                <a href="#" class="nav-link">Repositories</a>
+                <a href="#" class="nav-link">Projects</a>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Type / to search">
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-avatar"></div>
+        <div class="hero-content">
+            <h1>Survinar</h1>
+            <div class="hero-subtitle">Survinar · he/him</div>
+            <div class="hero-meta">
+                <div><span>🕒</span> UTC -12:00</div>
+                <div><span>🔗</span> <a href="https://github.com/Survinar">https://github.com/Survinar</a></div>
+            </div>
+            <div class="contributions-summary">
+                39 contributions in the last year
+            </div>
+        </div>
+    </div>
+
+    <div class="main-layout">
+        <aside>
+            <div class="sidebar-section">
+                <h3>Achievements</h3>
+                <div class="achievement-badge" title="Pair Extraordinaire"></div>
+            </div>
+            <div class="sidebar-section">
+                <h3>Languages</h3>
+                <div class="language-item">
+                    <div class="language-label">
+                        <span>JavaScript</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%; background-color: #f1e05a;"></div>
+                    </div>
+                </div>
+                <div class="language-item">
+                    <div class="language-label">
+                        <span>HTML</span>
+                        <span>25%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25%; background-color: #e34c26;"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <div class="projects-header">
+                <h2>Popular repositories</h2>
+                <a href="#" class="customize-link">Customize your pins</a>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-card-header">
+                        <a href="https://github.com/Survinar/NightsAtRoby" class="project-name">NightsAtRoby</a>
+                        <span class="project-status">Public</span>
+                    </div>
+                    <div class="project-description">
+                        A high-intensity 3D survival horror shooter built with Three.js. Features a complex movement system, tactical power-ups, and a charge-based 'Nuke' mechanic. Navigate nightmare landscapes, manage resource respawns, and face off against formidable bosses.
+                    </div>
+                    <div class="project-footer">
+                        <div class="project-lang">
+                            <span class="lang-dot" style="background-color: #f1e05a;"></span>
+                            JavaScript
+                        </div>
+                        <a href="https://survinar.github.io/NightsAtRoby/" class="demo-link">Live Demo</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-card-header">
+                        <a href="https://github.com/Survinar/backrooms-game" class="project-name">backrooms-game</a>
+                        <span class="project-status">Public</span>
+                    </div>
+                    <div class="project-description">
+                        An atmospheric psychological horror experience set in the Backrooms. Navigate procedurally generated liminal spaces with dynamic proximity warnings. Manage limited stamina and battery while being stalked by a relentless, flickering presence.
+                    </div>
+                    <div class="project-footer">
+                        <div class="project-lang">
+                            <span class="lang-dot" style="background-color: #e34c26;"></span>
+                            HTML
+                        </div>
+                        <a href="https://survinar.github.io/backrooms-game/" class="demo-link">Live Demo</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-card-header">
+                        <a href="https://github.com/Survinar/HEHE" class="project-name">HEHE</a>
+                        <span class="project-status">Public</span>
+                    </div>
+                    <div class="project-description">
+                        A fast-paced parkour survival game featuring a physics-based movement engine with sliding and air control. Evade a swarm of 60+ dynamic entities in a fog-drenched cityscape optimized for high-performance 3D rendering and spatial audio.
+                    </div>
+                    <div class="project-footer">
+                        <div class="project-lang">
+                            <span class="lang-dot" style="background-color: #f1e05a;"></span>
+                            JavaScript
+                        </div>
+                        <a href="https://survinar.github.io/HEHE/" class="demo-link">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div>© 2026. All rights reserved.</div>
+        <div class="footer-links">
+            <a href="https://github.com/Survinar">GitHub</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Documentation</a>
+            <a href="#">Support</a>
+        </div>
+    </footer>
+</body>
+</html>
