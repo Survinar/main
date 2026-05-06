@@ -65,9 +65,17 @@
             margin: 0 auto;
             padding: 40px var(--gutter);
             display: flex;
+            flex-direction: column;
+            gap: 24px;
+            border-bottom: 1px solid var(--outline-variant);
+            margin-bottom: var(--section-gap);
+        }
+
+        .nav-top {
+            display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 32px;
+            width: 100%;
         }
 
         .nav-brand {
@@ -96,10 +104,6 @@
         .header-languages {
             display: flex;
             gap: 24px;
-            padding: 12px 24px;
-            background-color: var(--surface-container-lowest);
-            border: 1px solid var(--outline-variant);
-            border-radius: 8px;
         }
 
         .mini-lang {
@@ -130,6 +134,36 @@
             border-radius: 2px;
         }
 
+        .nav-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--on-surface-variant);
+        }
+
+        .nav-meta-left {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-contributions {
+            font-weight: 600;
+            color: var(--on-surface);
+            padding: 4px 12px;
+            background-color: var(--surface-container-low);
+            border-radius: 4px;
+            border: 1px solid var(--outline-variant);
+        }
+
         .search-container {
             position: relative;
         }
@@ -150,40 +184,6 @@
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(172, 199, 255, 0.1);
-        }
-
-        /* Hero Section */
-        .hero {
-            max-width: var(--container-max);
-            margin: 0 auto var(--section-gap);
-            padding: 0 var(--gutter);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .hero-meta {
-            display: flex;
-            gap: 24px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            color: var(--on-surface-variant);
-            margin-bottom: 24px;
-        }
-
-        .hero-meta div {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .contributions-summary {
-            font-weight: 600;
-            color: var(--on-surface);
-            padding: 12px 24px;
-            border-top: 1px solid var(--outline-variant);
-            border-bottom: 1px solid var(--outline-variant);
         }
 
         /* Main Grid */
@@ -374,12 +374,10 @@
 
         /* Responsive */
         @media (max-width: 900px) {
-            nav {
+            .nav-top, .nav-bottom {
                 flex-direction: column;
-                gap: 24px;
-            }
-            .hero {
-                grid-template-columns: 1fr;
+                gap: 16px;
+                align-items: flex-start;
             }
             .projects-grid {
                 grid-template-columns: 1fr;
@@ -401,41 +399,42 @@
 </head>
 <body>
     <nav>
-        <div class="nav-brand">
-            <div class="nav-logo-img"></div>
-            <div class="nav-logo-text">Survinar</div>
-        </div>
-        <div class="header-languages">
-            <div class="mini-lang">
-                <div class="mini-lang-label">
-                    <span>JavaScript</span>
-                    <span>75%</span>
+        <div class="nav-top">
+            <div class="nav-brand">
+                <div class="nav-logo-img"></div>
+                <div class="nav-logo-text">Survinar</div>
+            </div>
+            <div class="header-languages">
+                <div class="mini-lang">
+                    <div class="mini-lang-label">
+                        <span>JavaScript</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="mini-progress-bar">
+                        <div class="mini-progress-fill" style="width: 75%; background-color: #f1e05a;"></div>
+                    </div>
                 </div>
-                <div class="mini-progress-bar">
-                    <div class="mini-progress-fill" style="width: 75%; background-color: #f1e05a;"></div>
+                <div class="mini-lang">
+                    <div class="mini-lang-label">
+                        <span>HTML</span>
+                        <span>25%</span>
+                    </div>
+                    <div class="mini-progress-bar">
+                        <div class="mini-progress-fill" style="width: 25%; background-color: #e34c26;"></div>
+                    </div>
                 </div>
             </div>
-            <div class="mini-lang">
-                <div class="mini-lang-label">
-                    <span>HTML</span>
-                    <span>25%</span>
-                </div>
-                <div class="mini-progress-bar">
-                    <div class="mini-progress-fill" style="width: 25%; background-color: #e34c26;"></div>
-                </div>
+        </div>
+        <div class="nav-bottom">
+            <div class="nav-meta-left">
+                <div class="nav-meta-item"><span>🕒</span> UTC -12:00</div>
+                <div class="nav-meta-item"><span>🔗</span> <a href="https://github.com/Survinar">github.com/Survinar</a></div>
+            </div>
+            <div class="nav-contributions">
+                39 contributions in the last year
             </div>
         </div>
     </nav>
-
-    <div class="hero">
-        <div class="hero-meta">
-            <div><span>🕒</span> UTC -12:00</div>
-            <div><span>🔗</span> <a href="https://github.com/Survinar">github.com/Survinar</a></div>
-        </div>
-        <div class="contributions-summary">
-            39 contributions in the last year
-        </div>
-    </div>
 
     <div class="main-layout">
         <main>
