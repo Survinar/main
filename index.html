@@ -416,23 +416,24 @@
                 <div class="nav-logo-img"></div>
                 <div class="nav-logo-text">Survinar</div>
             </div>
-            <div class="header-languages">
+            <div id="header-languages" class="header-languages">
+                <!-- dynamically populated by GitHub API -->
                 <div class="mini-lang">
                     <div class="mini-lang-label">
                         <span>JavaScript</span>
-                        <span>75%</span>
+                        <span>—</span>
                     </div>
                     <div class="mini-progress-bar">
-                        <div class="mini-progress-fill" style="width: 75%; background-color: #f1e05a;"></div>
+                        <div class="mini-progress-fill" style="width: 0%; background-color: #f1e05a;"></div>
                     </div>
                 </div>
                 <div class="mini-lang">
                     <div class="mini-lang-label">
                         <span>HTML</span>
-                        <span>25%</span>
+                        <span>—</span>
                     </div>
                     <div class="mini-progress-bar">
-                        <div class="mini-progress-fill" style="width: 25%; background-color: #e34c26;"></div>
+                        <div class="mini-progress-fill" style="width: 0%; background-color: #e34c26;"></div>
                     </div>
                 </div>
             </div>
@@ -442,8 +443,8 @@
                 <div class="nav-meta-item"><span>🕒</span> UTC -12:00</div>
                 <div class="nav-meta-item"><span>🔗</span> <a href="https://github.com/Survinar">github.com/Survinar</a></div>
             </div>
-            <div class="nav-contributions">
-                39 contributions in the last year
+            <div id="nav-contributions" class="nav-contributions">
+                — contributions all time
             </div>
         </div>
     </nav>
@@ -558,5 +559,116 @@
     <footer>
         <div>© 2026 All rights reserved.</div>
     </footer>
+
+    <script>
+        const GITHUB_USER = 'Survinar';
+
+        // ── Language colour map ──────────────────────────────────────────────
+        const LANG_COLORS = {
+            JavaScript:  '#f1e05a',
+            HTML:        '#e34c26',
+            CSS:         '#563d7c',
+            TypeScript:  '#2b7489',
+            Python:      '#3572A5',
+            'C++':       '#f34b7d',
+            'C#':        '#178600',
+            Java:        '#b07219',
+            Rust:        '#dea584',
+            Go:          '#00ADD8',
+            Shell:       '#89e051',
+            Vue:         '#41b883',
+        };
+
+        // ── Helpers ──────────────────────────────────────────────────────────
+        function apiFetch(url) {
+            return fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } })
+                .then(r => r.ok ? r.json() : Promise.reject(r.status));
+        }
+
+        function proxyFetch(url) {
+            const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
+            return fetch(proxy).then(r => r.json()).then(d => d.contents);
+        }
+
+        // ── Language percentages ─────────────────────────────────────────────
+        async function updateLanguages() {
+            const repos = await apiFetch(
+                `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&type=owner`
+            );
+
+            const nonForks = repos.filter(r => !r.fork);
+            const langTotals = {};
+
+            await Promise.all(nonForks.map(async repo => {
+                try {
+                    const langs = await apiFetch(
+                        `https://api.github.com/repos/${GITHUB_USER}/${repo.name}/languages`
+                    );
+                    for (const [lang, bytes] of Object.entries(langs)) {
+                        langTotals[lang] = (langTotals[lang] || 0) + bytes;
+                    }
+                } catch (_) { /* skip inaccessible repos */ }
+            }));
+
+            const totalBytes = Object.values(langTotals).reduce((a, b) => a + b, 0);
+            if (totalBytes === 0) return;
+
+            // Sort by bytes descending, take top languages
+            const sorted = Object.entries(langTotals)
+                .sort((a, b) => b[1] - a[1])
+                .filter(([, bytes]) => bytes / totalBytes >= 0.01); // ≥1%
+
+            const container = document.getElementById('header-languages');
+            container.innerHTML = sorted.map(([lang, bytes]) => {
+                const pct = ((bytes / totalBytes) * 100).toFixed(1);
+                const color = LANG_COLORS[lang] || '#8b909f';
+                return `
+                    <div class="mini-lang">
+                        <div class="mini-lang-label">
+                            <span>${lang}</span>
+                            <span>${pct}%</span>
+                        </div>
+                        <div class="mini-progress-bar">
+                            <div class="mini-progress-fill" style="width:${pct}%;background-color:${color};"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ── All-time contributions ───────────────────────────────────────────
+        async function updateContributions() {
+            const user = await apiFetch(`https://api.github.com/users/${GITHUB_USER}`);
+            const createdYear = new Date(user.created_at).getFullYear();
+            const currentYear = new Date().getFullYear();
+
+            let total = 0;
+
+            for (let year = createdYear; year <= currentYear; year++) {
+                try {
+                    const from = `${year}-01-01`;
+                    const to   = `${year}-12-31`;
+                    const url  = `https://github.com/users/${GITHUB_USER}/contributions?from=${from}&to=${to}`;
+                    const html = await proxyFetch(url);
+
+                    // Parse the SVG/HTML fragment and sum data-count attributes
+                    const tmp = document.createElement('div');
+                    tmp.innerHTML = html;
+                    tmp.querySelectorAll('rect[data-count]').forEach(rect => {
+                        total += parseInt(rect.getAttribute('data-count') || '0', 10);
+                    });
+                } catch (_) { /* skip years that fail */ }
+            }
+
+            if (total > 0) {
+                const el = document.getElementById('nav-contributions');
+                el.textContent = `${total.toLocaleString()} contributions all time`;
+            }
+        }
+
+        // ── Boot ─────────────────────────────────────────────────────────────
+        updateLanguages().catch(console.error);
+        updateContributions().catch(console.error);
+    </script>
 </body>
 </html>
